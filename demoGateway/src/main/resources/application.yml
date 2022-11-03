@@ -1,0 +1,24 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: NETCOREAPI
+          uri: lb://NETCOREAPI
+          predicates:
+            - Path=/productos/**
+          filters:
+            - RewritePath=/(?<productos>.*), /$\{productos}
+
+        - id: NODEJSAPI
+          uri: lb://NODEJSAPI
+          predicates:
+            - Path=/languages/**
+          filters:
+            - RewritePath=/(?<languages>.*), /$\{languages}
+
+        - id: APICLIENTES
+          uri: lb://APICLIENTES
+          predicates:
+            - Path=/clientes/**
+          filters:
+            - RewritePath=/(?<clientes>.*), /$\{clientes}
